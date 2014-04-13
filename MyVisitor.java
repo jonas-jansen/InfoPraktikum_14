@@ -62,3 +62,4 @@ public class MyVisitor extends BooleanExpressionBaseVisitor<Boolean> {
 }
 
 //Das ist nur ein Test
+//Um das hier genau zu verstehen, machen wir den Test jetzt auch umgekehrt.
