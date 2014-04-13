@@ -60,3 +60,5 @@ public class MyVisitor extends BooleanExpressionBaseVisitor<Boolean> {
      return visit(ctx.implication());
   }
 }
+
+//Das ist nur ein Test
