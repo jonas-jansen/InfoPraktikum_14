@@ -1,7 +1,12 @@
-X = 10;
-F = -1;
-F = F*X;
-X = -1-X;
-IF X==1 GOTO 6;
-GOTO 2;
-PRINT F;
+N = 2;
+X = 1;
+PRINT X;
+Y = 1;
+PRINT Y;
+Z = X + Y;
+PRINT Z;
+X = Y;
+Y = Z;
+N = N + 1;
+IF N == 40 GOTO 12
+GOTO 5
