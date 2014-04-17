@@ -1,180 +1,198 @@
 import java.util.*;
+//import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
-//Was noch getan werden muss: durchreichen der Exceptions (try, catch). Ich weiß nicht, ob ich alle Exceptions habe. Logik-Fehler suchen.
-
-public class MyInterpreter extends GOTOBaseVisitor<Boolean> {
+public class MyInterpreter extends GOTOBaseVisitor<Integer> {
 
 	private HashMap<String,Integer> variablen = new HashMap<String,Integer>();
-	private HashMap<Integer,Tree> commands = new HashMap<Integer,Tree>();
-	private Integer line = new Integer(0);						//Das ist in vielerlei Hinsicht einfacher.
+	//private HashMap<Integer,AbstractParseTreeVisitor> kids = new HashMap<Integer,AbstractParseTreeVisitor>();
+	private int curLine = 0;
 
-	@Override 
-	public Integer visitIstKleinerNumber(@NotNull GOTOParser.IstKleinerNumberContext ctx) {
+	@Override
+	public Integer visitStart(GOTOParser.StartContext ctx) {
+		int size = ctx.getChildCount();
+		int value = 0;
+		/*for (int i=0; (3*i)<size; i++) {
+			kids.put(new Integer(i),ctx.getChild(3*i));
+		}*/
+		//System.out.println("Size:"+size);
+		
+		while ( (3*curLine)<(size-1) ){
+			value = visit(ctx.getChild(curLine*3)).intValue();
+			//System.out.println("Line:"+curLine+"\tValue:"+value);
+			
+			if ( value == -1 ) {
+				curLine++;
+			} else {
+				curLine = value;
+			}
+		}
+		
+		return new Integer(1);
+	}
+
+	@Override
+	public Integer visitZuweisung(GOTOParser.ZuweisungContext ctx) {
+		variablen.put(ctx.VAR().getText(),visit(ctx.getChild(2)));
+
+		return new Integer(-1);
+	}
+
+	@Override
+	public Integer visitDruck(GOTOParser.DruckContext ctx) {
+		if (!variablen.containsKey(ctx.VAR().getText())) {
+			System.out.println("Variable does not exist");
+		} else {
+			System.out.println(variablen.get(ctx.VAR().getText()));
+		}
+
+		return new Integer(-1);
+	}
+
+	@Override
+	public Integer visitGoto(GOTOParser.GotoContext ctx) {
+		return Integer.valueOf(ctx.INT().getText());
+	}
+
+	@Override
+	public Integer visitBedingung(GOTOParser.BedingungContext ctx) {
+		boolean bool = (visit(ctx.getChild(1)).intValue() == 1);
+		if ( bool ) {
+			return Integer.valueOf(ctx.INT().getText());
+		}
+		
+		return new Integer(-1);
+	}
+
+	@Override
+	public Integer visitAusdruck(GOTOParser.AusdruckContext ctx) {
+		int size = ctx.getChildCount();
+		int value = 0;
+		if ( size == 1 ) {
+			value = visit(ctx.getChild(0)).intValue();
+		} else if ( size == 2 ) {
+			value = -visit(ctx.getChild(1)).intValue();
+		}
+
+		return new Integer(value);
+	}
+
+	@Override
+	public Integer visitAddition(GOTOParser.AdditionContext ctx) {
 		int size = ctx.getChildCount();
 		int value = 0;
 		if( size == 3 ) {
-			if(visit(ctx.getChild(0) < visit(ctx.getChild(2)) {
-				value = 1;
-			}
-		} else if (size == 4) {
-			if(visit(ctx.getChild(0) < visit(ctx.getChild(3)) {
-				value = 1;
-			}
+			value = visit(ctx.getChild(0)).intValue() + visit(ctx.getChild(2)).intValue();
+		} else if( size == 4 ) {
+			value = -visit(ctx.getChild(1)).intValue() + visit(ctx.getChild(3)).intValue();
 		}
-		return new Integer(value);							//falls Fehler oben, return false
+
+		return new Integer(value);
 	}
 
-        @Override 
-	public Integer visitMultiplication(@NotNull GOTOParser.MultiplicationContext ctx) { 
-		int size = ctx.getChildCount();
-                int value = 0;
-                if( size == 3 ) {
-                        value = visit(ctx.getChild(0)).intValue() * visit(ctx.getChild(2).intValue();
-                } else if( size == 4 ) {
-                        value = -visit(ctx.getChild(1)).intValue() * visit(ctx.getChild(2)).intValue();
-                }
-                return new Integer(value);
-
-	}
-
-        @Override 
-	public Integer visitVariable(@NotNull GOTOParser.VariableContext ctx) {
-		String var = ctx.VAR().getText();
-               	if(!variablen.containsKey(var)) {
-			throw new VariableDoesNotExistException();
-			return new Integer(0);
-		} else {
-			return variablen.get(var);
-		}
-	}
-
-        @Override 
-	public Integer visitNumber(@NotNull GOTOParser.NumberContext ctx) {
-		 return Integer.valueOf(ctx.INT().getText());
-	}
-
-        @Override 
-	public Integer visitGoto(@NotNull GOTOParser.GotoContext ctx) { 
-		line = visit(ctx.getChild(1));
-		return new Integer(0); 
-	}
-
-        @Override 
-	public Integer visitDruck(@NotNull GOTOParser.DruckContext ctx) throws VariableDoesNotExistException  { //Exception: Variable does not exist
-		if (!variablen.containsKey(ctx.getChild(1))) {
-			throw new VariableDoesNotExistException();                     //TODO
-		} else {
-			System.out.println(variablen.get(ctx.getChild(1)));
-		}
-		line = new Integer(line.intValue()++);
-		return new Integer(1);
-	}
-
-        @Override 
-	public Integer visitIstIdentischNumber(@NotNull GOTOParser.IstIdentischNumberContext ctx) {
-		int size = ctx.getChildCount();
-                int value = 0;
-                if( size == 3 ) {
-                        if(visit(ctx.getChild(0) == visit(ctx.getChild(2)) {
-                                value = 1;
-                        } 
-                } else if (size == 4) {
-                        if(visit(ctx.getChild(0) == visit(ctx.getChild(3)) {
-                                value = 1;
-                        } 
-                }
-                return new Integer(value);                                                      //falls Fehler oben, return false
- 
-	}
-
-        @Override 
-	public Integer visitBedingung(@NotNull GOTOParser.BedingungContext ctx) { 
-		if(visit(ctx.getChild(new Integer(1)) {
-			line = visit(ctx.getChild(3));
-		} else if {
-			line = new Integer(line.intValue()++);
-		}
-		return new Integer(1);
-	}
-
-        @Override 
-	public Integer visitSubtraction(@NotNull GOTOParser.SubtractionContext ctx) { 
+	@Override
+	public Integer visitSubtraction(GOTOParser.SubtractionContext ctx) {
 		int size = ctx.getChildCount();
 		int value = 0;
 		if( size == 3 ) {
 			value = visit(ctx.getChild(0)).intValue() - visit(ctx.getChild(2)).intValue();	
 		} else if( size == 4 ) {
-			value = -visit(ctx.getChild(1)).intValue() - visit(ctx.getChild(2)).intValue();
+			value = -visit(ctx.getChild(1)).intValue() - visit(ctx.getChild(3)).intValue();
 		}
+
 		return new Integer(value);
 	}
 
-	@Override 
-	public Integer visitStart(@NotNull GOTOParser.StartContext ctx) { 
+	@Override
+	public Integer visitMultiplication(GOTOParser.MultiplicationContext ctx) {
 		int size = ctx.getChildCount();
-		for(int i=0;i<size/3;i++) {
-			commands.put(i,ctx.getChild(3*i);
+		int value = 0;
+		if( size == 3 ) {
+				value = visit(ctx.getChild(0)).intValue() * visit(ctx.getChild(2)).intValue();
+		} else if( size == 4 ) {
+				value = -visit(ctx.getChild(1)).intValue() * visit(ctx.getChild(3)).intValue();
 		}
-		while(commands.containsKey(line)) {
-			visit(commands.get(line));
+		
+		return new Integer(value);
+	}
+
+	@Override
+	public Integer visitDivision(GOTOParser.DivisionContext ctx) { //Integer Division
+		int size = ctx.getChildCount();
+		int value = 0;
+		if( size == 3 ) {
+			value = visit(ctx.getChild(0)).intValue() / visit(ctx.getChild(2)).intValue();
+		} else if( size == 4 ) {
+			value = -visit(ctx.getChild(1)).intValue() / visit(ctx.getChild(3)).intValue();
 		}
-		return new Integer(0);
+
+		return new Integer(value);
 	}
 
-        @Override 
-	public Integer visitZuweisung(@NotNull GOTOParser.ZuweisungContext ctx) { 
-		variablen.put(ctx.getChild(0),visit(ctx.getChild(2));
-		line = new Integer(line.intValue()++);
-	}
-
-        @Override 
-	public Integer visitDivision(@NotNull GOTOParser.DivisionContext ctx) { //Integer Division
+	@Override
+	public Integer visitIstIdentischNumber(GOTOParser.IstIdentischNumberContext ctx) {
 		int size = ctx.getChildCount();
-                int value = 0;
-                if( size == 3 ) {
-                        value = visit(ctx.getChild(0)).intValue() / visit(ctx.getChild(2).intValue();
-                } else if( size == 4 ) {
-                        value = -visit(ctx.getChild(1)).intValue() / visit(ctx.getChild(2)).intValue();
-                }
-                return new Integer(value);
-
+		int value = 0;
+		if( size == 3 ) {
+			if(visit(ctx.getChild(0)).intValue() == visit(ctx.getChild(2)).intValue()) {
+				value = 1;
+			}
+		} else if (size == 4) {
+			if(visit(ctx.getChild(0)).intValue() == visit(ctx.getChild(3)).intValue()) {
+				value = 1;
+			}
+		}
+		
+		return new Integer(value);  //falls Fehler oben, return false
 	}
 
-        @Override 
-	public Integer visitAusdruck(@NotNull GOTOParser.AusdruckContext ctx) { 
-		int value = visit(ctx.getChild(2)).intValue();
-		return new Integer(-value);
-	}
-
-        @Override 
-	public Integer visitIstGroesserNumber(@NotNull GOTOParser.IstGroesserNumberContext ctx) {  //Exception 
+	@Override
+	public Integer visitIstGroesserNumber(GOTOParser.IstGroesserNumberContext ctx) {
 		int size = ctx.getChildCount();
-                int value = 0;
-                if( size == 3 ) {
-                        if(visit(ctx.getChild(0) > visit(ctx.getChild(2)) {
-                                value = 1;
-                        } 
-                } else if (size == 4) {
-                        if(visit(ctx.getChild(0) > visit(ctx.getChild(3)) {
-                                value = 1;
-                        } 
-                }
-                return new Integer(value);                                                      //falls Fehler oben, return false
+		int value = 0;
+		if( size == 3 ) {
+			if(visit(ctx.getChild(0)) > visit(ctx.getChild(2))) {
+				value = 1;
+			}
+		} else if (size == 4) {
+			if(visit(ctx.getChild(0)) > visit(ctx.getChild(3))) {
+				value = 1;
+			}
+		}
 
+		return new Integer(value);  //falls Fehler oben, return false
 	}
 
-        @Override 
-	public Integer visitAddition(@NotNull GOTOParser.AdditionContext ctx) { 
+	@Override
+	public Integer visitIstKleinerNumber(GOTOParser.IstKleinerNumberContext ctx) {
 		int size = ctx.getChildCount();
-                int value = 0;
-                if( size == 3 ) {
-                        value = visit(ctx.getChild(0)).intValue() + visit(ctx.getChild(2).intValue();
-                } else if( size == 4 ) {
-                        value = -visit(ctx.getChild(1)).intValue() + visit(ctx.getChild(2)).intValue();
-                } 
-                return new Integer(value);
- 
+		int value = 0;
+		if( size == 3 ) {
+			if(visit(ctx.getChild(0)) < visit(ctx.getChild(2))) {
+				value = 1;
+			}
+		} else if (size == 4) {
+			if(visit(ctx.getChild(0)) < visit(ctx.getChild(3))) {
+				value = 1;
+			}
+		}
+
+		return new Integer(value);	//falls Fehler oben, return false
 	}
 
+	@Override
+	public Integer visitVariable(GOTOParser.VariableContext ctx) {
+		String var = ctx.VAR().getText();
+		if(!variablen.containsKey(var)) {
+			System.out.println("Variable does not exist");
+			return new Integer(0);
+		}
+		
+		return variablen.get(var);
+	}
+
+	@Override
+	public Integer visitNumber(GOTOParser.NumberContext ctx) {
+		return Integer.valueOf(ctx.INT().getText());
+	}
 
 }
