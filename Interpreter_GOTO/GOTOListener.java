@@ -1,4 +1,4 @@
-// Generated from GOTO.g4 by ANTLR 4.1
+// Generated from GOTO.g4 by ANTLR 4.2.2
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -63,17 +63,6 @@ public interface GOTOListener extends ParseTreeListener {
 	void exitGoto(@NotNull GOTOParser.GotoContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link GOTOParser#Druck}.
-	 * @param ctx the parse tree
-	 */
-	void enterDruck(@NotNull GOTOParser.DruckContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GOTOParser#Druck}.
-	 * @param ctx the parse tree
-	 */
-	void exitDruck(@NotNull GOTOParser.DruckContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link GOTOParser#istIdentischNumber}.
 	 * @param ctx the parse tree
 	 */
@@ -83,6 +72,17 @@ public interface GOTOListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIstIdentischNumber(@NotNull GOTOParser.IstIdentischNumberContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link GOTOParser#Druck}.
+	 * @param ctx the parse tree
+	 */
+	void enterDruck(@NotNull GOTOParser.DruckContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GOTOParser#Druck}.
+	 * @param ctx the parse tree
+	 */
+	void exitDruck(@NotNull GOTOParser.DruckContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link GOTOParser#Bedingung}.

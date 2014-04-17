@@ -1,11 +1,15 @@
 import java.util.*;
 
+//Was noch getan werden muss: durchreichen der Exceptions (try, catch). Ich weiß nicht, ob ich alle Exceptions habe. Logik-Fehler suchen.
+
 public class MyInterpreter extends GOTOBaseVisitor<Boolean> {
-												//TODO Ersetze boolean!!!
+
 	private HashMap<String,Integer> variablen = new HashMap<String,Integer>();
-	
+	private HashMap<Integer,Tree> commands = new HashMap<Integer,Tree>();
+	private Integer line = new Integer(0);						//Das ist in vielerlei Hinsicht einfacher.
+
 	@Override 
-	public boolean visitIstKleinerNumber(@NotNull GOTOParser.IstKleinerNumberContext ctx) {
+	public Integer visitIstKleinerNumber(@NotNull GOTOParser.IstKleinerNumberContext ctx) {
 		int size = ctx.getChildCount();
 		int value = 0;
 		if( size == 3 ) {
@@ -21,7 +25,7 @@ public class MyInterpreter extends GOTOBaseVisitor<Boolean> {
 	}
 
         @Override 
-	public boolean visitMultiplication(@NotNull GOTOParser.MultiplicationContext ctx) { 
+	public Integer visitMultiplication(@NotNull GOTOParser.MultiplicationContext ctx) { 
 		int size = ctx.getChildCount();
                 int value = 0;
                 if( size == 3 ) {
@@ -34,7 +38,7 @@ public class MyInterpreter extends GOTOBaseVisitor<Boolean> {
 	}
 
         @Override 
-	public boolean visitVariable(@NotNull GOTOParser.VariableContext ctx) {
+	public Integer visitVariable(@NotNull GOTOParser.VariableContext ctx) {
 		String var = ctx.VAR().getText();
                	if(!variablen.containsKey(var)) {
 			throw new VariableDoesNotExistException();
@@ -45,27 +49,29 @@ public class MyInterpreter extends GOTOBaseVisitor<Boolean> {
 	}
 
         @Override 
-	public boolean visitNumber(@NotNull GOTOParser.NumberContext ctx) {
+	public Integer visitNumber(@NotNull GOTOParser.NumberContext ctx) {
 		 return Integer.valueOf(ctx.INT().getText());
 	}
 
         @Override 
-	public boolean visitGoto(@NotNull GOTOParser.GotoContext ctx) { 
-		return visitChildren(ctx); 
+	public Integer visitGoto(@NotNull GOTOParser.GotoContext ctx) { 
+		line = visit(ctx.getChild(1));
+		return new Integer(0); 
 	}
 
         @Override 
-	public boolean visitDruck(@NotNull GOTOParser.DruckContext ctx) throws Exception  { //Exception: Variable does not exist
+	public Integer visitDruck(@NotNull GOTOParser.DruckContext ctx) throws VariableDoesNotExistException  { //Exception: Variable does not exist
 		if (!variablen.containsKey(ctx.getChild(1))) {
 			throw new VariableDoesNotExistException();                     //TODO
 		} else {
 			System.out.println(variablen.get(ctx.getChild(1)));
 		}
+		line = new Integer(line.intValue()++);
 		return new Integer(1);
 	}
 
         @Override 
-	public boolean visitIstIdentischNumber(@NotNull GOTOParser.IstIdentischNumberContext ctx) {  //Exception
+	public Integer visitIstIdentischNumber(@NotNull GOTOParser.IstIdentischNumberContext ctx) {
 		int size = ctx.getChildCount();
                 int value = 0;
                 if( size == 3 ) {
@@ -82,12 +88,17 @@ public class MyInterpreter extends GOTOBaseVisitor<Boolean> {
 	}
 
         @Override 
-	public boolean visitBedingung(@NotNull GOTOParser.BedingungContext ctx) { 
-		return visitChildren(ctx); 
+	public Integer visitBedingung(@NotNull GOTOParser.BedingungContext ctx) { 
+		if(visit(ctx.getChild(new Integer(1)) {
+			line = visit(ctx.getChild(3));
+		} else if {
+			line = new Integer(line.intValue()++);
+		}
+		return new Integer(1);
 	}
 
         @Override 
-	public boolean visitSubtraction(@NotNull GOTOParser.SubtractionContext ctx) { 
+	public Integer visitSubtraction(@NotNull GOTOParser.SubtractionContext ctx) { 
 		int size = ctx.getChildCount();
 		int value = 0;
 		if( size == 3 ) {
@@ -99,17 +110,25 @@ public class MyInterpreter extends GOTOBaseVisitor<Boolean> {
 	}
 
 	@Override 
-	public boolean visitStart(@NotNull GOTOParser.StartContext ctx) { 
-		return visitChildren(ctx); 
+	public Integer visitStart(@NotNull GOTOParser.StartContext ctx) { 
+		int size = ctx.getChildCount();
+		for(int i=0;i<size/3;i++) {
+			commands.put(i,ctx.getChild(3*i);
+		}
+		while(commands.containsKey(line)) {
+			visit(commands.get(line));
+		}
+		return new Integer(0);
 	}
 
         @Override 
-	public boolean visitZuweisung(@NotNull GOTOParser.ZuweisungContext ctx) { 
+	public Integer visitZuweisung(@NotNull GOTOParser.ZuweisungContext ctx) { 
 		variablen.put(ctx.getChild(0),visit(ctx.getChild(2));
+		line = new Integer(line.intValue()++);
 	}
 
         @Override 
-	public boolean visitDivision(@NotNull GOTOParser.DivisionContext ctx) { //Integer Division
+	public Integer visitDivision(@NotNull GOTOParser.DivisionContext ctx) { //Integer Division
 		int size = ctx.getChildCount();
                 int value = 0;
                 if( size == 3 ) {
@@ -122,12 +141,13 @@ public class MyInterpreter extends GOTOBaseVisitor<Boolean> {
 	}
 
         @Override 
-	public boolean visitAusdruck(@NotNull GOTOParser.AusdruckContext ctx) { 
-		return visitChildren(ctx); 
+	public Integer visitAusdruck(@NotNull GOTOParser.AusdruckContext ctx) { 
+		int value = visit(ctx.getChild(2)).intValue();
+		return new Integer(-value);
 	}
 
         @Override 
-	public boolean visitIstGroesserNumber(@NotNull GOTOParser.IstGroesserNumberContext ctx) {  //Exception 
+	public Integer visitIstGroesserNumber(@NotNull GOTOParser.IstGroesserNumberContext ctx) {  //Exception 
 		int size = ctx.getChildCount();
                 int value = 0;
                 if( size == 3 ) {
@@ -144,7 +164,7 @@ public class MyInterpreter extends GOTOBaseVisitor<Boolean> {
 	}
 
         @Override 
-	public boolean visitAddition(@NotNull GOTOParser.AdditionContext ctx) { 
+	public Integer visitAddition(@NotNull GOTOParser.AdditionContext ctx) { 
 		int size = ctx.getChildCount();
                 int value = 0;
                 if( size == 3 ) {
