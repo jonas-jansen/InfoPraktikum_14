@@ -8,5 +8,5 @@ PRINT Z;
 X = Y;
 Y = Z;
 N = N + 1;
-IF N == 40 GOTO 12
-GOTO 5
+IF N == 40 GOTO 12;
+GOTO 5;
