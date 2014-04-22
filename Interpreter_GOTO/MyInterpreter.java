@@ -1,30 +1,21 @@
 import java.util.*;
-//import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
+import org.antlr.v4.runtime.tree.*;
 
 public class MyInterpreter extends GOTOBaseVisitor<Integer> {
 
 	private HashMap<String,Integer> variablen = new HashMap<String,Integer>();
-	//private HashMap<Integer,AbstractParseTreeVisitor> kids = new HashMap<Integer,AbstractParseTreeVisitor>();
-	private int curLine = 0;
+	private HashMap<Integer,ParseTree> commands = new HashMap<Integer,ParseTree>();
+	private Integer line = new Integer(0);
 
 	@Override
 	public Integer visitStart(GOTOParser.StartContext ctx) {
 		int size = ctx.getChildCount();
-		int value = 0;
-		/*for (int i=0; (3*i)<size; i++) {
-			kids.put(new Integer(i),ctx.getChild(3*i));
-		}*/
-		//System.out.println("Size:"+size);
+		for (int i=0; i<size/3; i++) {
+			commands.put(new Integer(i),ctx.getChild(3*i));
+		}
 		
-		while ( (3*curLine)<(size-1) ){
-			value = visit(ctx.getChild(curLine*3)).intValue();
-			//System.out.println("Line:"+curLine+"\tValue:"+value);
-			
-			if ( value == -1 ) {
-				curLine++;
-			} else {
-				curLine = value;
-			}
+		while(commands.containsKey(line)) {
+			visit(commands.get(line));
 		}
 		
 		return new Integer(1);
@@ -33,8 +24,9 @@ public class MyInterpreter extends GOTOBaseVisitor<Integer> {
 	@Override
 	public Integer visitZuweisung(GOTOParser.ZuweisungContext ctx) {
 		variablen.put(ctx.VAR().getText(),visit(ctx.getChild(2)));
+		line = new Integer(line.intValue()+1);
 
-		return new Integer(-1);
+		return new Integer(1);
 	}
 
 	@Override
@@ -44,23 +36,28 @@ public class MyInterpreter extends GOTOBaseVisitor<Integer> {
 		} else {
 			System.out.println(variablen.get(ctx.VAR().getText()));
 		}
+		line = new Integer(line.intValue()+1);
 
-		return new Integer(-1);
+
+		return new Integer(1);
 	}
 
 	@Override
 	public Integer visitGoto(GOTOParser.GotoContext ctx) {
-		return Integer.valueOf(ctx.INT().getText());
+		line = Integer.valueOf(ctx.INT().getText());
+		
+		return new Integer(1);
 	}
 
 	@Override
 	public Integer visitBedingung(GOTOParser.BedingungContext ctx) {
 		boolean bool = (visit(ctx.getChild(1)).intValue() == 1);
+		line = new Integer(line.intValue()+1);
 		if ( bool ) {
-			return Integer.valueOf(ctx.INT().getText());
+			line = Integer.valueOf(ctx.INT().getText());
 		}
 		
-		return new Integer(-1);
+		return new Integer(1);
 	}
 
 	@Override
