@@ -4,7 +4,7 @@ start: altn EOF;
 altn: concat ('|' concat)* ;
 concat: starred (starred)*;
 starred: exp		#expr
-	| (exp '*')	#starred
+	| (exp '*')	#star
 	;
 exp: '(' altn ')'	#group
 	| SYMB		#symbol

@@ -50,12 +50,9 @@ public class regularExpressionParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_start; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).enterStart(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).exitStart(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof regularExpressionVisitor ) return ((regularExpressionVisitor<? extends T>)visitor).visitStart(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -92,12 +89,9 @@ public class regularExpressionParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_altn; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).enterAltn(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).exitAltn(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof regularExpressionVisitor ) return ((regularExpressionVisitor<? extends T>)visitor).visitAltn(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -148,12 +142,9 @@ public class regularExpressionParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_concat; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).enterConcat(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).exitConcat(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof regularExpressionVisitor ) return ((regularExpressionVisitor<? extends T>)visitor).visitConcat(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -192,20 +183,36 @@ public class regularExpressionParser extends Parser {
 	}
 
 	public static class StarredContext extends ParserRuleContext {
-		public ExpContext exp() {
-			return getRuleContext(ExpContext.class,0);
-		}
 		public StarredContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_starred; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).enterStarred(this);
+	 
+		public StarredContext() { }
+		public void copyFrom(StarredContext ctx) {
+			super.copyFrom(ctx);
 		}
+	}
+	public static class StarContext extends StarredContext {
+		public ExpContext exp() {
+			return getRuleContext(ExpContext.class,0);
+		}
+		public StarContext(StarredContext ctx) { copyFrom(ctx); }
 		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).exitStarred(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof regularExpressionVisitor ) return ((regularExpressionVisitor<? extends T>)visitor).visitStar(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprContext extends StarredContext {
+		public ExpContext exp() {
+			return getRuleContext(ExpContext.class,0);
+		}
+		public ExprContext(StarredContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof regularExpressionVisitor ) return ((regularExpressionVisitor<? extends T>)visitor).visitExpr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -216,6 +223,7 @@ public class regularExpressionParser extends Parser {
 			setState(32);
 			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 			case 1:
+				_localctx = new ExprContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(28); exp();
@@ -223,6 +231,7 @@ public class regularExpressionParser extends Parser {
 				break;
 
 			case 2:
+				_localctx = new StarContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				{
@@ -259,12 +268,9 @@ public class regularExpressionParser extends Parser {
 		public TerminalNode SYMB() { return getToken(regularExpressionParser.SYMB, 0); }
 		public SymbolContext(ExpContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).enterSymbol(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).exitSymbol(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof regularExpressionVisitor ) return ((regularExpressionVisitor<? extends T>)visitor).visitSymbol(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class GroupContext extends ExpContext {
@@ -273,12 +279,9 @@ public class regularExpressionParser extends Parser {
 		}
 		public GroupContext(ExpContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).enterGroup(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).exitGroup(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof regularExpressionVisitor ) return ((regularExpressionVisitor<? extends T>)visitor).visitGroup(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
