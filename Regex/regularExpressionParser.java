@@ -1,4 +1,4 @@
-// Generated from regularExpression.g4 by ANTLR 4.1
+// Generated from regularExpression.g4 by ANTLR 4.2
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -34,6 +34,9 @@ public class regularExpressionParser extends Parser {
 	public String[] getRuleNames() { return ruleNames; }
 
 	@Override
+	public String getSerializedATN() { return _serializedATN; }
+
+	@Override
 	public ATN getATN() { return _ATN; }
 
 	public regularExpressionParser(TokenStream input) {
@@ -49,6 +52,14 @@ public class regularExpressionParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_start; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).enterStart(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).exitStart(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof regularExpressionVisitor ) return ((regularExpressionVisitor<? extends T>)visitor).visitStart(this);
@@ -88,6 +99,14 @@ public class regularExpressionParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_altn; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).enterAltn(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).exitAltn(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof regularExpressionVisitor ) return ((regularExpressionVisitor<? extends T>)visitor).visitAltn(this);
@@ -141,6 +160,14 @@ public class regularExpressionParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_concat; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).enterConcat(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).exitConcat(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof regularExpressionVisitor ) return ((regularExpressionVisitor<? extends T>)visitor).visitConcat(this);
@@ -199,6 +226,14 @@ public class regularExpressionParser extends Parser {
 		}
 		public StarContext(StarredContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).enterStar(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).exitStar(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof regularExpressionVisitor ) return ((regularExpressionVisitor<? extends T>)visitor).visitStar(this);
 			else return visitor.visitChildren(this);
@@ -209,6 +244,14 @@ public class regularExpressionParser extends Parser {
 			return getRuleContext(ExpContext.class,0);
 		}
 		public ExprContext(StarredContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).enterExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).exitExpr(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof regularExpressionVisitor ) return ((regularExpressionVisitor<? extends T>)visitor).visitExpr(this);
@@ -268,6 +311,14 @@ public class regularExpressionParser extends Parser {
 		public TerminalNode SYMB() { return getToken(regularExpressionParser.SYMB, 0); }
 		public SymbolContext(ExpContext ctx) { copyFrom(ctx); }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).enterSymbol(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).exitSymbol(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof regularExpressionVisitor ) return ((regularExpressionVisitor<? extends T>)visitor).visitSymbol(this);
 			else return visitor.visitChildren(this);
@@ -278,6 +329,14 @@ public class regularExpressionParser extends Parser {
 			return getRuleContext(AltnContext.class,0);
 		}
 		public GroupContext(ExpContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).enterGroup(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).exitGroup(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof regularExpressionVisitor ) return ((regularExpressionVisitor<? extends T>)visitor).visitGroup(this);
@@ -323,10 +382,10 @@ public class regularExpressionParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3\b,\4\2\t\2\4\3\t"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\b,\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\3\2\3\2\3\3\3\3\3\3\7\3\23\n\3\f\3\16\3"+
 		"\26\13\3\3\4\3\4\7\4\32\n\4\f\4\16\4\35\13\4\3\5\3\5\3\5\3\5\5\5#\n\5"+
-		"\3\6\3\6\3\6\3\6\3\6\5\6*\n\6\3\6\2\7\2\4\6\b\n\2\2*\2\f\3\2\2\2\4\17"+
+		"\3\6\3\6\3\6\3\6\3\6\5\6*\n\6\3\6\2\2\7\2\4\6\b\n\2\2*\2\f\3\2\2\2\4\17"+
 		"\3\2\2\2\6\27\3\2\2\2\b\"\3\2\2\2\n)\3\2\2\2\f\r\5\4\3\2\r\16\7\2\2\3"+
 		"\16\3\3\2\2\2\17\24\5\6\4\2\20\21\7\6\2\2\21\23\5\6\4\2\22\20\3\2\2\2"+
 		"\23\26\3\2\2\2\24\22\3\2\2\2\24\25\3\2\2\2\25\5\3\2\2\2\26\24\3\2\2\2"+
@@ -336,7 +395,7 @@ public class regularExpressionParser extends Parser {
 		"\3\2&\'\7\3\2\2\'*\3\2\2\2(*\7\7\2\2)$\3\2\2\2)(\3\2\2\2*\13\3\2\2\2\6"+
 		"\24\33\")";
 	public static final ATN _ATN =
-		ATNSimulator.deserialize(_serializedATN.toCharArray());
+		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
 		_decisionToDFA = new DFA[_ATN.getNumberOfDecisions()];
 		for (int i = 0; i < _ATN.getNumberOfDecisions(); i++) {

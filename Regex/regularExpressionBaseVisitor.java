@@ -1,4 +1,4 @@
-// Generated from regularExpression.g4 by ANTLR 4.1
+// Generated from regularExpression.g4 by ANTLR 4.2
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -13,57 +13,57 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 public class regularExpressionBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements regularExpressionVisitor<T> {
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitSymbol(@NotNull regularExpressionParser.SymbolContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitStart(@NotNull regularExpressionParser.StartContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitStar(@NotNull regularExpressionParser.StarContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitExpr(@NotNull regularExpressionParser.ExprContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitGroup(@NotNull regularExpressionParser.GroupContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitConcat(@NotNull regularExpressionParser.ConcatContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitAltn(@NotNull regularExpressionParser.AltnContext ctx) { return visitChildren(ctx); }
 }

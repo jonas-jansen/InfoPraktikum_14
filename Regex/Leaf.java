@@ -4,16 +4,16 @@ public class Leaf {
 	
 	private String leaf;
 	private boolean isFirst, isLast;
-	private ArrayList<Leaf> next;
+	private ArrayList<Integer> next;
 
 	public Leaf(String a) {
 		this.leaf = a;
 		this.isFirst = false;
 		this.isLast = false;
-		this.next = new ArrayList<Leaf>();
+		this.next = new ArrayList<Integer>();
 	}
 
-	public Leaf(String a, boolean first, boolean last, ArrayList<Leaf> next) {
+	public Leaf(String a, boolean first, boolean last, ArrayList<Integer> next) {
 		this.leaf = a;
 		this.isFirst = first;
 		this.isLast = last;
@@ -33,18 +33,18 @@ public class Leaf {
 	} 
 
 	public boolean isLast() {
-		return isLast();
+		return isLast;
 	}
 
 	public void setLast(boolean last) {
 		this.isLast = last;
 	}
 
-	public ArrayList<Leaf> getNext() {
+	public ArrayList<Integer> getNext() {
 		return next;
 	}
 
-	public void setNext(ArrayList<Leaf> next) {
+	public void setNext(ArrayList<Integer> next) {
 		this.next = next;
 	}
 

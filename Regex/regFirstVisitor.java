@@ -1,46 +1,83 @@
+import org.antlr.v4.runtime.tree.ParseTree;
 import java.util.*;
 
-public class regFirstVisitor extends regularExpressionBaseVisitor<T> {
-	
-	ArrayList<Leaf> leafs;
+public class regFirstVisitor extends regularExpressionBaseVisitor<Boolean> {
+    
+    private ArrayList<Leaf> leafs;
+    private int counter;
+    private boolean isFirst;
 
-	public regFirstVisitor (ArrayList<Leaf> leafs) {
-		super();
-		this.leafs = leafs;
-	}
+    public regFirstVisitor (ArrayList<Leaf> leafs) {
+        super();
+        this.leafs = leafs;
+        this.counter = 0;
+        this.isFirst = true;
+    }
 
-	@Override
-	public T visitStart(regularExpressionParser.StartContext ctx) { 
-		return visitChildren(ctx); 
-	}
-	
-	@Override
-	public T visitAltn(regularExpressionParser.AltnContext ctx) { 
-		return visitChildren(ctx); 
-	}	
+    public ArrayList<Leaf> getLeafs(ParseTree tree){
+        this.visit(tree);
+        return this.leafs;
+    }
 
-	@Override
-	public T visitConcat(regularExpressionParser.ConcatContext ctx) { 
-		return visitChildren(ctx); 
-	}
+    @Override
+    public Boolean visitStart(regularExpressionParser.StartContext ctx) { 
+        visit(ctx.altn()); 
+        return true;
+    }
+    
+    @Override
+    public Boolean visitAltn(regularExpressionParser.AltnContext ctx) { 
+        boolean first = this.isFirst;
+        int i = 0;
+        for(regularExpressionParser.ConcatContext c : ctx.concat()) {
+            this.isFirst = first;
+            if (!visit(c)){
+                i++;
+            }
+        }       
+        return i == 0;
+    }   
 
-	@Override
-	public T visitStar(regularExpressionParser.StarContext ctx) { 
-		return visitChildren(ctx); 
-	}
+    @Override
+    public Boolean visitConcat(regularExpressionParser.ConcatContext ctx) { 
+        boolean first = this.isFirst;
+        int i = 0;
+        for(regularExpressionParser.StarredContext s : ctx.starred()) {
+            if (i == 0){
+                this.isFirst = first;
+            }
+            else {
+                this.isFirst = false;
+            }
+            if (visit(s)){
+                i++;
+            }
+        }       
+        return i != 0; 
+    }
 
-	@Override	
-	public T visitExpr(regularExpressionParser.ExprContext ctx) { 
-		return visitChildren(ctx); 
-	}
+    @Override   
+    public Boolean visitExpr(regularExpressionParser.ExprContext ctx) { 
+        return visit(ctx.exp());
+    }
 
-	@Override
-	public T visitGroup(regularExpressionParser.GroupContext ctx) { 
-		return visitChildren(ctx); 
-	}
+    @Override
+    public Boolean visitStar(regularExpressionParser.StarContext ctx) { 
+        visit(ctx.exp());
+        return false;
+    }
 
-	@Override
-	public T visitSymbol(regularExpressionParser.SymbolContext ctx) { 
-		return visitChildren(ctx); 
-	}
+    @Override
+    public Boolean visitGroup(regularExpressionParser.GroupContext ctx) { 
+        return visit(ctx.altn());
+    }
+
+    @Override
+    public Boolean visitSymbol(regularExpressionParser.SymbolContext ctx) { 
+        Leaf leaf = this.leafs.get(this.counter);
+        leaf.setFirst(isFirst);
+        this.leafs.set(this.counter,leaf);
+        this.counter++;
+        return true;
+    }
 }

@@ -1,4 +1,4 @@
-// Generated from regularExpression.g4 by ANTLR 4.1
+// Generated from regularExpression.g4 by ANTLR 4.2
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -19,17 +19,6 @@ public interface regularExpressionListener extends ParseTreeListener {
 	void exitSymbol(@NotNull regularExpressionParser.SymbolContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link regularExpressionParser#starred}.
-	 * @param ctx the parse tree
-	 */
-	void enterStarred(@NotNull regularExpressionParser.StarredContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link regularExpressionParser#starred}.
-	 * @param ctx the parse tree
-	 */
-	void exitStarred(@NotNull regularExpressionParser.StarredContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link regularExpressionParser#start}.
 	 * @param ctx the parse tree
 	 */
@@ -39,6 +28,28 @@ public interface regularExpressionListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStart(@NotNull regularExpressionParser.StartContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link regularExpressionParser#star}.
+	 * @param ctx the parse tree
+	 */
+	void enterStar(@NotNull regularExpressionParser.StarContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link regularExpressionParser#star}.
+	 * @param ctx the parse tree
+	 */
+	void exitStar(@NotNull regularExpressionParser.StarContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link regularExpressionParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpr(@NotNull regularExpressionParser.ExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link regularExpressionParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpr(@NotNull regularExpressionParser.ExprContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link regularExpressionParser#group}.

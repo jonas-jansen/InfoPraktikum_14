@@ -4,12 +4,12 @@ start: altn EOF;
 altn: concat ('|' concat)* ;
 concat: starred (starred)*;
 starred: exp		#expr
-	| (exp '*')	#star
+	| (exp '*')		#star
 	;
 exp: '(' altn ')'	#group
-	| SYMB		#symbol
+	| SYMB			#symbol
 ;
-SYMB: [a-z];
+SYMB: [a-z1-9];
 WS: [ \t\n]+ -> skip;
 
 

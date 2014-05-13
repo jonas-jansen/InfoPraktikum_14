@@ -1,4 +1,4 @@
-// Generated from regularExpression.g4 by ANTLR 4.1
+// Generated from regularExpression.g4 by ANTLR 4.2
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -13,104 +13,117 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 public class regularExpressionBaseListener implements regularExpressionListener {
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterSymbol(@NotNull regularExpressionParser.SymbolContext ctx) { }
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSymbol(@NotNull regularExpressionParser.SymbolContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void enterStarred(@NotNull regularExpressionParser.StarredContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
-	 */
-	@Override public void exitStarred(@NotNull regularExpressionParser.StarredContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterStart(@NotNull regularExpressionParser.StartContext ctx) { }
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitStart(@NotNull regularExpressionParser.StartContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStar(@NotNull regularExpressionParser.StarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStar(@NotNull regularExpressionParser.StarContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpr(@NotNull regularExpressionParser.ExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpr(@NotNull regularExpressionParser.ExprContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterGroup(@NotNull regularExpressionParser.GroupContext ctx) { }
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitGroup(@NotNull regularExpressionParser.GroupContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterConcat(@NotNull regularExpressionParser.ConcatContext ctx) { }
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitConcat(@NotNull regularExpressionParser.ConcatContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterAltn(@NotNull regularExpressionParser.AltnContext ctx) { }
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAltn(@NotNull regularExpressionParser.AltnContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterEveryRule(@NotNull ParserRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitEveryRule(@NotNull ParserRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void visitTerminal(@NotNull TerminalNode node) { }
 	/**
 	 * {@inheritDoc}
-	 * <p/>
-	 * The default implementation does nothing.
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void visitErrorNode(@NotNull ErrorNode node) { }
 }
