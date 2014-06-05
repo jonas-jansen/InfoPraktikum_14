@@ -1,0 +1,22 @@
+Zuerst:
+aktualisiere alle Visitoren für \{}, handhabe wie Symbol, speichere als Leaf mit #INT
+
+Dann:
+aktualisiere Leaf:
+	-Informationen zu Klammern: zu welchen Klammer gehört das Leaf, ist es zu diesen Klammer first, last, sind die Klammern gesternt
+
+Dazu:
+schreibe Visitor, der zu den einzelnen Leafs bestimmt, zu welchen Klammern (wichtig Klammerreihenfolge beachten) es gehört, prüfe mit Level ab, ob Klammern gesternt/geplust sind und ob in der klammer nur ein gesternter ausdruck steht
+
+Zuletzt:
+aktualisiere BNFA-Engine: Speichere irgendwie zu jeder Klammer das letzte endgültige Verlassen dieser Klammer:
+	Fälle:
+		in der Klammer kein großer Stern
+			prüfe isLast---füge String ein
+		in der Klammer ein großer Stern
+			prüfe islast ob das nächste nicht in der Klammer ist
+
+
+((bb)*)*\{2}\{1}
+
+(a*)bfd\{1}
