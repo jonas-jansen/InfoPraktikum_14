@@ -23,9 +23,10 @@ public class BNFAEngine {
             }
         }
         Collections.reverse(first);
+		boolean back;
         Stack stack;
         stackEntry next;
-        ArrayList<Integer> nextInt = new ArrayList<Integer>();
+		ArrayList<Integer> nextInt = new ArrayList<Integer>();
         
         for (int i=0; i<this.text.length; i++){
             stack = new Stack();
@@ -34,26 +35,27 @@ public class BNFAEngine {
             }
             int j=i;
             while (!stack.isEmpty()){
+				back = false;
                 next = (stackEntry)stack.pop();
                 j = next.getI();
                 if (j >= this.text.length || !next.getLeaf().getLeaf().equals(String.valueOf(this.text[j]))){
                     continue;
                 }
-                if (next.getLeaf().isLast()){
-                    return new MatchingResult(i,String.valueOf(this.text).substring(i,j+1));
-                }
                 j++;
                 nextInt = next.getLeaf().getNext();
-                if (nextInt.isEmpty()){
-                    continue;
-                }
-                Collections.sort(nextInt);
                 Collections.reverse(nextInt);
                 for (Integer in : nextInt){
                     stack.push(new stackEntry(j,this.leafs.get(in)));
+					if (j < this.text.length && this.leafs.get(in).getLeaf().equals(String.valueOf(this.text[j]))){
+						back = true;
+					}
                 }
+                Collections.sort(nextInt);
+                if (!back && next.getLeaf().isLast()){
+                    return new MatchingResult(i,String.valueOf(this.text).substring(i,j));
+ 				}
             }
-        }
+		}
         
         return new MatchingResult(-1,"");
     }
