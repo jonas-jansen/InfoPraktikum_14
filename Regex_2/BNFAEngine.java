@@ -16,13 +16,10 @@ public class BNFAEngine {
         this.text = text.toCharArray();
 		
         this.klammerMatch = new String[this.greatStar.length];
-		for (int i=0; i<this.klammerMatch.length; i++){
-			this.klammerMatch[i] = "";
-		}
-    }
+	}
 
     public MatchingResult run() {   
-        this.showLeaf();
+//         this.showLeaf();
         ArrayList<Leaf> first = new ArrayList<Leaf>();
         for (Leaf l : this.leafs){
             if (l.isFirst()){
@@ -38,6 +35,9 @@ public class BNFAEngine {
         for (int i=0; i<this.text.length; i++){
             stack = new Stack();
 			stringStack = new Stack();
+			for (int k=0; k<this.klammerMatch.length; k++){
+    			this.klammerMatch[k] = "";
+    		}
             for (Leaf l : first){
                 stack.push(new stackEntry(i,l));
 				stringStack.push(this.klammerMatch.clone());
