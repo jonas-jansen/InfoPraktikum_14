@@ -192,13 +192,14 @@ public class regNextVisitor extends regularExpressionBaseVisitor<Boolean> {
         }
         
         boolean pstar = this.star;           //wenn in einem + ist das Verhalten gleich wie in einem *
+        boolean back;
         int lev = this.level;
         this.star = true;
         this.level = 0;
-        visit(ctx.exp());
+        back = !visit(ctx.exp());
         this.star = pstar;
         this.level = lev;
-        return !this.isNext;
+        return !(this.isNext || back);
     }
     
     @Override 
@@ -218,16 +219,17 @@ public class regNextVisitor extends regularExpressionBaseVisitor<Boolean> {
 
     @Override
     public Boolean visitGroup(regularExpressionParser.GroupContext ctx) { 
-		if (this.star && this.level == 0
-				&& ctx.altn().getChildCount() == 1 
+        if (this.star && this.level == 0
+                && ctx.altn().getChildCount() == 1 
                 && ctx.altn().getChild(0).getChildCount() == 1 
                 && ctx.altn().getChild(0).getChild(0).getChildCount() == 1 
-                && ctx.altn().getChild(0).getChild(0).getChild(0) instanceof regularExpressionParser.GroupContext){
-			this.level--;
-			boolean back = visit(ctx.altn());
-			this.level++;
-			return back;
-		}
+                && (ctx.altn().getChild(0).getChild(0).getChild(0) instanceof regularExpressionParser.GroupContext
+                 || ctx.altn().getChild(0).getChild(0).getChild(0) instanceof regularExpressionParser.OrexpContext)){
+            this.level--;
+            boolean back = visit(ctx.altn());
+            this.level++;
+            return back;
+        }
         return visit(ctx.altn());
     }
     
@@ -238,7 +240,8 @@ public class regNextVisitor extends regularExpressionBaseVisitor<Boolean> {
             Collections.reverse(symbols);
             boolean localNext = this.isNext, localNext2 = false;
             for (TerminalNode s : symbols){
-                if (this.counter == this.position && ctx.getParent().getChildCount() == 2 && !ctx.getParent().getChild(1).getText().equals("?")){
+                if (this.counter == this.position && ctx.getParent().getChildCount() == 2 && !ctx.getParent().getChild(1).getText().equals("?") ||
+                        this.counter == this.position && this.star && this.level == 0){
                     this.isNext = true;
                 }
                 if (this.isNext){
@@ -261,7 +264,8 @@ public class regNextVisitor extends regularExpressionBaseVisitor<Boolean> {
         List<TerminalNode> symbols = ctx.SYMB();
         boolean localNext = this.isNext, localNext2 = false;
         for (TerminalNode s : symbols){
-            if (this.counter == this.position && ctx.getParent().getChildCount() == 2 && !ctx.getParent().getChild(1).getText().equals("?")){
+            if (this.counter == this.position && ctx.getParent().getChildCount() == 2 && !ctx.getParent().getChild(1).getText().equals("?") ||
+                    this.counter == this.position && this.star && this.level == 0){
                 this.isNext = true;
             }
             if (this.isNext){
@@ -315,7 +319,7 @@ public class regNextVisitor extends regularExpressionBaseVisitor<Boolean> {
             this.isNext = true;
         }
         this.counter++;
-        return !isNext;
+        return !this.isNext;
     }
     
     @Override
