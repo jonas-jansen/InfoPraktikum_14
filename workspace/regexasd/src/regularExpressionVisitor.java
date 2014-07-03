@@ -11,6 +11,13 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface regularExpressionVisitor<T> extends ParseTreeVisitor<T> {
 	/**
+	 * Visit a parse tree produced by {@link regularExpressionParser#reku}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReku(@NotNull regularExpressionParser.RekuContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link regularExpressionParser#plus}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

@@ -135,6 +135,16 @@ public class MasterVisitorBNFA extends regularExpressionBaseVisitor<Boolean> {
 		for(TerminalNode s : symbols) {
             str = str + s.getText();
         }
+		try {
+           	int i = Integer.valueOf(str);
+           	if ( i == 0) {
+           		System.out.println("Fehler: Bitte geben Sie nur natürliche Zahlen ein!");
+               	System.exit(0);
+           	}
+        } catch(Exception e) {
+           	System.out.println("Fehler: Bitte geben Sie nur natürliche Zahlen ein!");
+           	System.exit(0);
+        }
         this.leafs.add(new Leaf("#" + str,this.greatStar.length,new ArrayList<Integer>(this.klammer)));
         return true;
     }

@@ -66,7 +66,9 @@ public class BNFAEngine {
 							|| !match.equals(String.valueOf(this.text).substring(j,j+match.length()))) {
 						continue;
 					}
-					j = j + match.length() - 1;
+					if (match.length() > 0) {
+						j = j + match.length() - 1;
+					}
 				}
 				
 				for (Integer in : next.getLeaf().getKlammer()) {
@@ -88,7 +90,7 @@ public class BNFAEngine {
                 j++;
 				if (next.getLeaf().isLast()){
                     result = j;
-					stack = new Stack();
+                    stack = new Stack();
 					stringStack = new Stack();
  				}
                 nextInt = next.getLeaf().getNext();
@@ -99,7 +101,7 @@ public class BNFAEngine {
 				}
                 Collections.sort(nextInt);
             }
-			if (result != -1){
+			if (result != -1 && result != i+1){
 				return new MatchingResult(i,String.valueOf(this.text).substring(i,result));
 			}
 		}

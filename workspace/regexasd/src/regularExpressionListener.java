@@ -8,6 +8,17 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface regularExpressionListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link regularExpressionParser#reku}.
+	 * @param ctx the parse tree
+	 */
+	void enterReku(@NotNull regularExpressionParser.RekuContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link regularExpressionParser#reku}.
+	 * @param ctx the parse tree
+	 */
+	void exitReku(@NotNull regularExpressionParser.RekuContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link regularExpressionParser#plus}.
 	 * @param ctx the parse tree
 	 */

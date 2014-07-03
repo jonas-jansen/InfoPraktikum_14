@@ -17,6 +17,14 @@ public class regularExpressionBaseVisitor<T> extends AbstractParseTreeVisitor<T>
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
+	@Override public T visitReku(@NotNull regularExpressionParser.RekuContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
 	@Override public T visitPlus(@NotNull regularExpressionParser.PlusContext ctx) { return visitChildren(ctx); }
 
 	/**

@@ -14,11 +14,11 @@ public class regularExpressionParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__7=1, T__6=2, T__5=3, T__4=4, T__3=5, T__2=6, T__1=7, T__0=8, SYMB=9, 
-		WS=10;
+		T__9=1, T__8=2, T__7=3, T__6=4, T__5=5, T__4=6, T__3=7, T__2=8, T__1=9, 
+		T__0=10, SYMB=11, WS=12;
 	public static final String[] tokenNames = {
-		"<INVALID>", "']'", "')'", "'+'", "'*'", "'['", "'('", "'|'", "'?'", "SYMB", 
-		"WS"
+		"<INVALID>", "']'", "')'", "'+'", "'*'", "'['", "'{'", "'('", "'}'", "'|'", 
+		"'?'", "SYMB", "WS"
 	};
 	public static final int
 		RULE_start = 0, RULE_altn = 1, RULE_concat = 2, RULE_starred = 3, RULE_exp = 4;
@@ -124,10 +124,10 @@ public class regularExpressionParser extends Parser {
 			setState(18);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==7) {
+			while (_la==9) {
 				{
 				{
-				setState(14); match(7);
+				setState(14); match(9);
 				setState(15); concat();
 				}
 				}
@@ -185,7 +185,7 @@ public class regularExpressionParser extends Parser {
 			setState(25);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << 5) | (1L << 6) | (1L << SYMB))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << 5) | (1L << 6) | (1L << 7) | (1L << SYMB))) != 0)) {
 				{
 				{
 				setState(22); starred();
@@ -327,7 +327,7 @@ public class regularExpressionParser extends Parser {
 				{
 				{
 				setState(32); exp();
-				setState(33); match(8);
+				setState(33); match(10);
 				}
 				}
 				break;
@@ -364,6 +364,26 @@ public class regularExpressionParser extends Parser {
 		public ExpContext() { }
 		public void copyFrom(ExpContext ctx) {
 			super.copyFrom(ctx);
+		}
+	}
+	public static class RekuContext extends ExpContext {
+		public List<TerminalNode> SYMB() { return getTokens(regularExpressionParser.SYMB); }
+		public TerminalNode SYMB(int i) {
+			return getToken(regularExpressionParser.SYMB, i);
+		}
+		public RekuContext(ExpContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).enterReku(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof regularExpressionListener ) ((regularExpressionListener)listener).exitReku(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof regularExpressionVisitor ) return ((regularExpressionVisitor<? extends T>)visitor).visitReku(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class SymbolContext extends ExpContext {
@@ -428,13 +448,13 @@ public class regularExpressionParser extends Parser {
 		enterRule(_localctx, 8, RULE_exp);
 		int _la;
 		try {
-			setState(52);
+			setState(59);
 			switch (_input.LA(1)) {
-			case 6:
+			case 7:
 				_localctx = new GroupContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(40); match(6);
+				setState(40); match(7);
 				setState(41); altn();
 				setState(42); match(2);
 				}
@@ -467,6 +487,27 @@ public class regularExpressionParser extends Parser {
 				setState(51); match(1);
 				}
 				break;
+			case 6:
+				_localctx = new RekuContext(_localctx);
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(52); match(6);
+				setState(54); 
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				do {
+					{
+					{
+					setState(53); match(SYMB);
+					}
+					}
+					setState(56); 
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				} while ( _la==SYMB );
+				setState(58); match(8);
+				}
+				break;
 			default:
 				throw new NoViableAltException(this);
 			}
@@ -483,22 +524,23 @@ public class regularExpressionParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3\f9\4\2\t\2\4\3\t"+
+		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3\16@\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\3\2\3\2\3\3\3\3\3\3\7\3\23\n\3\f\3\16\3"+
 		"\26\13\3\3\4\3\4\7\4\32\n\4\f\4\16\4\35\13\4\3\5\3\5\3\5\3\5\3\5\3\5\3"+
 		"\5\3\5\3\5\3\5\5\5)\n\5\3\6\3\6\3\6\3\6\3\6\3\6\3\6\6\6\62\n\6\r\6\16"+
-		"\6\63\3\6\5\6\67\n\6\3\6\2\7\2\4\6\b\n\2\2;\2\f\3\2\2\2\4\17\3\2\2\2\6"+
-		"\27\3\2\2\2\b(\3\2\2\2\n\66\3\2\2\2\f\r\5\4\3\2\r\16\7\2\2\3\16\3\3\2"+
-		"\2\2\17\24\5\6\4\2\20\21\7\t\2\2\21\23\5\6\4\2\22\20\3\2\2\2\23\26\3\2"+
-		"\2\2\24\22\3\2\2\2\24\25\3\2\2\2\25\5\3\2\2\2\26\24\3\2\2\2\27\33\5\b"+
-		"\5\2\30\32\5\b\5\2\31\30\3\2\2\2\32\35\3\2\2\2\33\31\3\2\2\2\33\34\3\2"+
-		"\2\2\34\7\3\2\2\2\35\33\3\2\2\2\36)\5\n\6\2\37 \5\n\6\2 !\7\6\2\2!)\3"+
-		"\2\2\2\"#\5\n\6\2#$\7\n\2\2$)\3\2\2\2%&\5\n\6\2&\'\7\5\2\2\')\3\2\2\2"+
-		"(\36\3\2\2\2(\37\3\2\2\2(\"\3\2\2\2(%\3\2\2\2)\t\3\2\2\2*+\7\b\2\2+,\5"+
-		"\4\3\2,-\7\4\2\2-\67\3\2\2\2.\67\7\13\2\2/\61\7\7\2\2\60\62\7\13\2\2\61"+
-		"\60\3\2\2\2\62\63\3\2\2\2\63\61\3\2\2\2\63\64\3\2\2\2\64\65\3\2\2\2\65"+
-		"\67\7\3\2\2\66*\3\2\2\2\66.\3\2\2\2\66/\3\2\2\2\67\13\3\2\2\2\7\24\33"+
-		"(\63\66";
+		"\6\63\3\6\3\6\3\6\6\69\n\6\r\6\16\6:\3\6\5\6>\n\6\3\6\2\7\2\4\6\b\n\2"+
+		"\2D\2\f\3\2\2\2\4\17\3\2\2\2\6\27\3\2\2\2\b(\3\2\2\2\n=\3\2\2\2\f\r\5"+
+		"\4\3\2\r\16\7\2\2\3\16\3\3\2\2\2\17\24\5\6\4\2\20\21\7\13\2\2\21\23\5"+
+		"\6\4\2\22\20\3\2\2\2\23\26\3\2\2\2\24\22\3\2\2\2\24\25\3\2\2\2\25\5\3"+
+		"\2\2\2\26\24\3\2\2\2\27\33\5\b\5\2\30\32\5\b\5\2\31\30\3\2\2\2\32\35\3"+
+		"\2\2\2\33\31\3\2\2\2\33\34\3\2\2\2\34\7\3\2\2\2\35\33\3\2\2\2\36)\5\n"+
+		"\6\2\37 \5\n\6\2 !\7\6\2\2!)\3\2\2\2\"#\5\n\6\2#$\7\f\2\2$)\3\2\2\2%&"+
+		"\5\n\6\2&\'\7\5\2\2\')\3\2\2\2(\36\3\2\2\2(\37\3\2\2\2(\"\3\2\2\2(%\3"+
+		"\2\2\2)\t\3\2\2\2*+\7\t\2\2+,\5\4\3\2,-\7\4\2\2->\3\2\2\2.>\7\r\2\2/\61"+
+		"\7\7\2\2\60\62\7\r\2\2\61\60\3\2\2\2\62\63\3\2\2\2\63\61\3\2\2\2\63\64"+
+		"\3\2\2\2\64\65\3\2\2\2\65>\7\3\2\2\668\7\b\2\2\679\7\r\2\28\67\3\2\2\2"+
+		"9:\3\2\2\2:8\3\2\2\2:;\3\2\2\2;<\3\2\2\2<>\7\n\2\2=*\3\2\2\2=.\3\2\2\2"+
+		"=/\3\2\2\2=\66\3\2\2\2>\13\3\2\2\2\b\24\33(\63:=";
 	public static final ATN _ATN =
 		ATNSimulator.deserialize(_serializedATN.toCharArray());
 	static {

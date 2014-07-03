@@ -16,6 +16,19 @@ public class regularExpressionBaseListener implements regularExpressionListener 
 	 * <p/>
 	 * The default implementation does nothing.
 	 */
+	@Override public void enterReku(@NotNull regularExpressionParser.RekuContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
+	@Override public void exitReku(@NotNull regularExpressionParser.RekuContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation does nothing.
+	 */
 	@Override public void enterPlus(@NotNull regularExpressionParser.PlusContext ctx) { }
 	/**
 	 * {@inheritDoc}

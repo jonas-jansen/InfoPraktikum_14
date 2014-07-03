@@ -11,8 +11,9 @@ starred: exp			#expr
 exp: '(' altn ')'		#group
 	| SYMB			#symbol
 	| '[' SYMB+ ']'		#orexp
+	| '\{' SYMB+ '}'	#reku
 	;
-SYMB: [A-Za-z1-9.];
-WS: [ \t\n]+ -> skip;
+SYMB: [A-Za-z0-9. ];
+WS: [\t\n]+ -> skip;
 
 
